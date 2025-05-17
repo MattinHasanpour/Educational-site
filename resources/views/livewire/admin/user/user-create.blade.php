@@ -1,40 +1,55 @@
 <div>
+    <button class="bg-blue-600 text-white font-bold py-1 px-3 rounded-md my-2" wire:click="$refresh">بروزرسانی</button>
+    <button class="bg-blue-600 text-white font-bold py-1 px-3 rounded-md my-2" wire:click="resetCreate">پاک کردن</button>
     <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
             <div class="container-fluid">
+                @if (session()->has('message'))
+                    <div class="alert alert-info">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 <h5 class="card-title mb-4 text-primary">
                     <i class="fas fa-user-plus me-2"></i>
                     ایجاد کاربر جدید
                 </h5>
-
-                <form method="POST" class="needs-validation" novalidate>
+                <form wire:submit="saveUser" class="needs-validation" novalidate>
                     <!-- ردیف اول - نام و ایمیل -->
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label for="name" class="form-label fw-semibold">نام و نام خانوادگی</label>
                             <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fas fa-user text-muted"></i>
-                            </span>
-                                <input type="text" class="form-control form-control-lg" id="name" name="name" required>
-                                <div class="invalid-feedback">
-                                    لطفاً نام کاربر را وارد کنید
-                                </div>
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-user text-muted"></i>
+                                </span>
+                                <input type="text"
+                                       class="form-control form-control-lg @error('name') is-invalid @enderror"
+                                       id="name"
+                                       wire:model='name'>
                             </div>
+                            @error('name')
+                            <div class="error-message">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
                             <label for="email" class="form-label fw-semibold">ایمیل</label>
                             <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fas fa-envelope text-muted"></i>
-                            </span>
-                                <input type="email" class="form-control form-control-lg" id="email" name="email"
-                                       required>
-                                <div class="invalid-feedback">
-                                    لطفاً یک ایمیل معتبر وارد کنید
-                                </div>
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-envelope text-muted"></i>
+                                </span>
+                                <input type="email"
+                                       class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                       id="email"
+                                       wire:model="email">
                             </div>
+                            @error('email')
+                            <div class="error-message">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -44,65 +59,37 @@
                             <label for="mobile" class="form-label fw-semibold">موبایل</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light">+98</span>
-                                <input type="tel" class="form-control form-control-lg" id="mobile" name="mobile"
-                                       required>
-                                <div class="invalid-feedback">
-                                    لطفاً شماره موبایل را وارد کنید
-                                </div>
+                                <input type="tel"
+                                       class="form-control form-control-lg @error('mobile') is-invalid @enderror"
+                                       id="mobile"
+                                       wire:model="mobile">
                             </div>
+                            @error('mobile')
+                            <div class="error-message">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
                             <label for="password" class="form-label fw-semibold">پسورد</label>
                             <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fas fa-lock text-muted"></i>
-                            </span>
-                                <input type="password" class="form-control form-control-lg" id="password"
-                                       name="password" required>
+                                <span class="input-group-text bg-light">
+                                    <i class="fas fa-lock text-muted"></i>
+                                </span>
+                                <input type="password"
+                                       class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                       id="password"
+                                       wire:model="password">
                                 <button class="btn btn-light" type="button" id="togglePassword">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <div class="invalid-feedback">
-                                    لطفاً رمز عبور را وارد کنید
-                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- ردیف سوم - شبکه‌های اجتماعی -->
-                    <div class="row mb-4">
-                        <div class="col-md-4 mb-3 mb-md-0">
-                            <label for="whatsapp" class="form-label fw-semibold">واتساپ</label>
-                            <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fab fa-whatsapp text-success"></i>
-                            </span>
-                                <input type="text" class="form-control" id="whatsapp" name="whatsapp"
-                                       placeholder="شماره واتساپ">
+                            @error('password')
+                            <div class="error-message">
+                                {{ $message }}
                             </div>
-                        </div>
-
-                        <div class="col-md-4 mb-3 mb-md-0">
-                            <label for="telegram" class="form-label fw-semibold">تلگرام</label>
-                            <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fab fa-telegram text-primary"></i>
-                            </span>
-                                <input type="text" class="form-control" id="telegram" name="telegram"
-                                       placeholder="آیدی تلگرام">
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="instagram" class="form-label fw-semibold">اینستاگرام</label>
-                            <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="fab fa-instagram text-danger"></i>
-                            </span>
-                                <input type="text" class="form-control" id="instagram" name="instagram"
-                                       placeholder="آیدی اینستاگرام">
-                            </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -111,31 +98,47 @@
                         <div class="col-12">
                             <label for="file" class="form-label fw-semibold">آپلود عکس پروفایل</label>
                             <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <img id="preview" src="https://via.placeholder.com/100"
-                                         class="rounded-circle border w-24 h-24" width="80" height="80" alt="Preview">
+                                {{--                                <div class="me-3">--}}
+                                {{--                                    <img id="preview"--}}
+                                {{--                                         src="https://img.icons8.com/?size=100&id=13042&format=png&color=000000"--}}
+                                {{--                                         class="rounded-circle border w-24 h-24" width="80" height="80" alt="Preview">--}}
+                                {{--                                </div>--}}
+                                <div class="mr-3 avatar avatar-xl w-28 h-28 rounded-full bg-gray-300">
+                                    <div class="spinner-grow spinner-border-sm text-danger text-center" wire:loading
+                                         wire:target="image"></div>
+                                    @if($image)
+                                        <img class="rounded-circle w-28 h-28 shadow-sm"
+                                             src="{{$image->temporaryUrl()}}">
+                                    @endif
                                 </div>
                                 <div class="flex-grow-1">
-                                    <input type="file" class="form-control" id="file" accept="image/*">
+                                    <input wire:model="image"
+                                           type="file"
+                                           class="form-control @error('image') is-invalid @enderror"
+                                           id="file"
+                                           accept="image/*">
                                     <div class="form-text">فرمت‌های مجاز: JPG, PNG (حداکثر 2MB)</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- دکمه ارسال -->
+                    <!-- دکمه ارسال و دکمه ویرایش -->
                     <div class="d-flex justify-content-end mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg px-4 py-2">
+                        <button type="submit" wire:loading.attr="disablad" class="btn btn-primary btn-lg px-4 py-2">
                             <i class="fas fa-save me-2"></i>
-                            ذخیره کاربر
+                            <span wire:loading.remove> ذخیره کاربر</span>
+                            <span wire:loading>در حال ارسال داده<span
+                                    class="spinner-grow spinner-grow-sm"></span></span>
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
+    <livewire:admin.panel.index lazy />
     <style>
+        /* استایل‌های پایه */
         .form-control-lg {
             padding: 0.75rem 1rem;
             font-size: 1rem;
@@ -156,21 +159,41 @@
         #preview {
             object-fit: cover;
         }
+
+        /* استایل سفارشی برای ارورها */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 0.25rem;
+            border-right: 3px solid #dc3545;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+
+        .is-invalid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 
     <script>
-        // نمایش پیش‌نمایش عکس
-        document.getElementById('file').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    document.getElementById('preview').src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
         // نمایش/مخفی کردن پسورد
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
@@ -183,21 +206,5 @@
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         });
-
-        // اعتبارسنجی فرم
-        (function () {
-            'use strict';
-            const forms = document.querySelectorAll('.needs-validation');
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-        })();
     </script>
 </div>

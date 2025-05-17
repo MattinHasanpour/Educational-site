@@ -1,4 +1,4 @@
-<main>
+<main style="z-index: 4" >
     <section class="position-relative overflow-hidden pt-5 pt-lg-3">
         <!-- SVG START -->
         <figure class="position-absolute top-50 start-0 translate-middle-y ms-n7 d-none d-xxl-block">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> قالب مدیریتی </title>
+    <title>پنل مدیریت || {{$title}}</title>
     <link rel="shortcut icon" href="{{ url('panel/assets/media/image/favicon.png') }}">
     <meta name="theme-color" content="#5867dd">
     <link rel="stylesheet" href="{{ url('panel/vendors/bundle.css') }}" type="text/css">
@@ -95,6 +95,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-dark-900 dark:text-gray-200">
 @include('admin.layout.header')
+{{-- <livewire:admin.layout.header /> --}}
 
 <div class="flex h-screen overflow-hidden">
 
@@ -118,8 +119,8 @@
                     class="absolute bottom-0 left-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-dark-800"></span>
             </div>
             <div>
-                <h4 class="font-semibold text-gray-800 dark:text-white">محمد رضایی</h4>
-                <span class="text-xs text-gray-500 dark:text-gray-400">مدیر سیستم</span>
+                <h4 class="font-semibold text-gray-800">متین حسن پور</h4>
+                <span class="text-xs text-gray-500">مدیر سیستم</span>
             </div>
         </div>
 
@@ -129,8 +130,8 @@
                 <!-- Dashboard -->
                 <li>
                     <a href="{{ route('panel') }}"
-                       class="flex items-center p-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-700 group">
-                        <i class="ri-dashboard-line text-xl text-gray-500 dark:text-gray-400 group-hover:text-primary-500"></i>
+                       class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100 group">
+                        <i class="ri-dashboard-line text-xl text-gray-500 group-hover:text-primary-500"></i>
                         <span class="mr-3">داشبورد</span>
                     </a>
                 </li>
@@ -238,8 +239,8 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-auto">
         <!-- Mobile Header -->
-        <header class="lg:hidden flex items-center justify-between p-4 bg-white dark:bg-dark-800 shadow-sm z-30">
-            <button id="openSidebar" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        <header class="lg:hidden flex items-center justify-between p-4 bg-white shadow-sm z-30">
+            <button id="openSidebar" class="text-gray-500 hover:text-gray-700">
                 <i class="ri-menu-line text-xl"></i>
             </button>
             <div class="text-lg font-semibold">پنل مدیریت</div>
@@ -248,7 +249,7 @@
 
         <!-- Content -->
         <div class="p-4">
-            <h1 class="text-2xl font-bold mb-6">داشبورد مدیریت</h1>
+            <h1 class="text-2xl font-bold mb-6 text-gray-500">داشبورد مدیریت</h1>
             <br/>
             {{$slot}}
         </div>
